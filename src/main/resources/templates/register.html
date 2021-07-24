@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up</title>
+    <style>
+        html {
+            text-align: center;
+            align-items: center;
+        }
+
+        *, *:after, *:before {
+            box-sizing: border-box;
+            font-family: Ubuntu, sans-serif;
+        }
+
+        .form {
+            width: 500px;
+            background-color: rgba(76, 62, 50, 0.56);
+            padding: 8px;
+            border-radius: 5px;
+            margin: auto;
+        }
+
+        input {
+            display: block;
+            padding: 5px;
+            margin-bottom: 5px;
+            font-size: 18px;
+            width: 100%;
+            outline: none;
+            border: 3px solid #000;
+            transition: .2s;
+        }
+
+        input:focus {
+            border-color: #555;
+        }
+
+        button {
+            font-size: 24px;
+            padding: 6px;
+            border-radius: 5px;
+            border: 2px solid #555;
+            cursor: pointer;
+        }
+
+        #text {
+            color: red;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+<h1>Sign up</h1>
+<div class="form">
+    <form th:method="post" th:action="@{/register}" th:object="${user}">
+        <input type="text" name="username" id="username" placeholder="Username" th:field="*{username}" required>
+        <input type="password" name="password" id="password" placeholder="Password" th:field="*{password}" required>
+        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" required>
+        <input type="text" name="name" placeholder="Name" th:field="*{name}" required>
+        <input type="text" name="email" th:field="*{email}" placeholder="Email">
+        <input type="date" name="dob" th:field="*{dob}" placeholder="Date of birth" required>
+        <button id="btn" type="button" value="Register" >Register</button>
+    </form>
+    <span id="text"></span>
+</div>
+<script>
+    let btn = document.querySelector("#btn");
+    btn.addEventListener("click", check);
+    function check() {
+        let password = document.querySelector("#password");
+        let confirm = document.querySelector("#confirmPassword");
+        let text = document.querySelector("#text")
+        if (password.value !== confirm.value) {
+           text.innerHTML = "Password mismatch";
+        } else {
+           btn.setAttribute("type", "submit");
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars</title>
+    <style>
+        * {
+            font-family: Ubuntu, sans-serif;
+            box-sizing: border-box;
+        }
+
+        .box {
+            font-size: 24px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            width: 60%;
+        }
+
+        .header {
+            text-align: center;
+            border: 2px solid #555555;
+            font-weight: 700;
+        }
+
+        .item, .id {
+            padding: 5px;
+            border: 2px solid #555555;
+        }
+
+        #control {
+            margin-bottom: 10px;
+        }
+
+        .add {
+            background-color: #233255;
+            color: #fff;
+            padding: 2px;
+            width: 70px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #delete {
+            background-color: darkred;
+            color: white;
+            border: 2px solid #000000;
+            cursor: pointer;
+            padding: 4px;
+            font-size: 18px;
+            border-radius: 3px;
+        }
+
+        #delete:active {
+            background-color: red;
+        }
+
+        #edit {
+            font-size: 18px;
+            padding: 4px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .manage{
+            transition: 0.4s;
+        }
+        .form {
+            width: 500px;
+            background-color: rgba(76, 62, 50, 0.56);
+            padding: 8px;
+            border-radius: 5px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <div class="header">Id</div>
+        <div class="header">Number</div>
+        <div class="header">Model</div>
+        <div class="header">Producer</div>
+        <div class="header">Color</div>
+        <th:block th:each="car : ${cars}">
+            <div class="id" th:text="${car.id}"></div>
+            <div class="item" th:text="${car.number}"></div>
+            <div class="item" th:text="${car.model}"></div>
+            <div class="item" th:text="${car.producer}"></div>
+            <div class="item" th:text="${car.color}"></div>
+        </th:block>
+    </div>
+    <div id="control">
+        <button type="button" id="add" class="add">Add</button>
+        <button class="manage" type="button" id="edit">Edit</button>
+        <button  class="manage" type="button" id="delete">Delete</button>
+    </div>
+<!--    <form th:method="put" th:action="@{/user/{id}/cars/{carId} (id = ${user.id}) (carId = ${car}"-->
+    <div class="form" style="opacity: 0">
+        <form id="addForm" th:action="@{/user/{id}/cars (id = ${user.id})}" method="post" th:object="${car}">
+            <input type="text" placeholder="Number" required th:field="*{number}">
+            <input type="text" placeholder="Model" required th:field="*{model}">
+            <input type="text" placeholder="Producer" required th:field="*{producer}">
+            <input type="text" placeholder="Color" required th:field="*{color}">
+            <input type="hidden" th:field="*{userId}">
+            <button type="submit">Create</button>
+        </form>
+    </div>
+
+<script>
+    let add = document.querySelector(".add");
+    add.addEventListener("click", () => {
+        let addForm = document.querySelector(".form");
+        addForm.style.opacity = "1";
+    })
+
+</script>
+</body>
+</html>

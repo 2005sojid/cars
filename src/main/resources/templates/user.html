@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.getName()}"></title>
+    <style>
+        *{
+            font-family: Ubuntu,sans-serif;
+        }
+        span{
+            font-size: 26px;
+        }
+        .text{
+            font-weight: 500;
+            color: #555555;
+        }
+        .main{
+            margin: 20px;
+        }
+        .ref > a{
+            color: #1f1c1c;
+            text-decoration: none;
+            font-size: 28px;
+            transition: 0.3s;
+        }
+        .ref > a:hover{
+            color: #904e2a;
+        }
+        .ref{
+            margin-left: 130px;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <span class="text">Username:   </span>
+        <span th:text="${user.getUsername()}"></span>
+        <br>
+        <span class="text">Name:   </span>
+        <span th:text="${user.getName()}"></span>
+        <br>
+        <span class="text">Date of birth:   </span>
+        <span th:text="${user.getDob()}"></span>
+        <br>
+        <span class="text">Email:   </span>
+        <span th:text="${user.getEmail()}"></span>
+    </div>
+    <div class="ref">
+        <a th:href="@{/user/{id}/cars (id = ${user.id})}">Cars</a>
+    </div>
+</body>
+</html>

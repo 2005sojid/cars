@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Ubuntu, sans-serif;
+        }
+
+        a {
+            font-size: 24px;
+            color: #904e2a;
+        }
+
+        .block {
+            padding: 8px;
+            border-right: 2px solid #555;
+            border-bottom: 2px solid #555;
+        }
+    </style>
+</head>
+<body>
+<h1 style="color: #233255; text-align: center; font-size: 60px">Main page</h1>
+<hr style="border-width: 3px">
+<div style="display: flex; align-items: center">
+    <div class="block" style="width: 50%; display: flex; justify-content: space-between">
+        <div sec:authorize="isAuthenticated()">
+            <a th:href="@{/user/{id} (id = ${id})}" sec:authentication="principal.name"></a>
+        </div>
+        <div th:switch="${#authentication}? ${#authorization.expression('isAuthenticated()')} : ${false}">
+            <a th:case="${false}" th:href="@{/login}">Sign in</a>
+        </div>
+        <a th:href="@{/register}">Sign up</a>
+    </div>
+
+    <div sec:authorize="isAuthenticated()"  style="width: 50%; display: flex; justify-content: space-between" class="block">
+        <div>
+            <a th:href="@{/logout}">Sign out</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
